@@ -1,6 +1,5 @@
-vowel = ["а","е","ё","и","о","у","ы","э","ю","я"]
-vowel_hash = {}
 
-("а".."я").each_with_index {|letter, index| vowel_hash[letter] = index if vowel.include?(letter) }
-
-print vowel_hash
+cities = ["msk" , "spb", "krs", "irk"]
+cities.each_with_index do |city , index|
+  puts "#{index} = #{city}"
+end

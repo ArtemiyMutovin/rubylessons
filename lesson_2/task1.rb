@@ -1,15 +1,13 @@
-months_and_days= {
-  jan: 31,
-  feb: 28,
-  mar: 31,
-  apr: 30,
-  may: 31,
-  jun: 30,
-  jul: 31,
-  aug: 31,
-  sep: 30,
-  oct: 31,
-  nov: 30,
-  dec: 31
+users_and_numbers = {
+  "mike" => 21,
+  "john" => 56,
+  "nick" => 11,
+  "david" => 4,
+  "mikhail" => 1,
+  "max" => 8
 }
-months_and_days.each {|month, days| puts month if days == 30}
+user_founded = false
+users_and_numbers.each do |user, number|
+  user_founded = true if user == "max"
+end
+puts user_founded

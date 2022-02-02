@@ -1,3 +1,3 @@
 
-numbers = (10..100).step(5).to_a
-print numbers
+letters = ('a'..'z').to_a
+print letters
