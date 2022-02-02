@@ -1,8 +1,8 @@
-fib = [0,1]
-loop do
-  next_fib = fib[-1] + fib[-2]
-  break if next_fib >= 100
-  fib << next_fib
+
+sevens = []
+numbers = (1..100).to_a
+numbers.each do |number|
+  sevens << number if number.to_s.include?("7")
 end
-print fib
+puts sevens
 
