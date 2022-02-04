@@ -5,6 +5,7 @@ class Station
     @name = name
     @trains = []
   end
+
   def add_train(train)
     @trains << train
   end
@@ -14,10 +15,10 @@ class Station
        train.type == type
     end
   end
+
   def delete_train(train)
     @trains.delete(train)
   end
-
 end
 
 class Train
@@ -28,24 +29,24 @@ class Train
     @type = type
     @wagons = wagons
     @current_speed = 0
-
   end
+
   def start(speed)
     @current_speed += speed
-
   end
+
   def stop(speed)
     @current_speed = @current_speed - speed
-
   end
+
   def current_speed
     @current_speed
-
   end
+
   def add_wagon
     @wagons += 1 if @current_speed == 0
-
   end
+
   def delete_wagon
     @wagons -= 1 if @current_speed == 0
   end
@@ -53,8 +54,8 @@ class Train
   def getting_route(route)
     @route = route
     @current_station = @route.stations.first
-
   end
+
   def move_train
     current_index = @route.stations.find_index(@current_station)
     @current_station = @route.stations[current_index + 1]
@@ -71,7 +72,6 @@ class Route
 
   def add_midway(station)
     @stations.insert(-2, station)
-
   end
 
   def delete_midway(station)
@@ -81,7 +81,6 @@ class Route
   def show_stations
     puts @stations
   end
-
-  end
+end
 
 
