@@ -31,7 +31,7 @@ class Train
 
   end
   def start(speed)
-    @current_speed = @current_speed + speed
+    @current_speed += speed
 
   end
   def stop(speed)
@@ -39,15 +39,15 @@ class Train
 
   end
   def current_speed
-    puts "Текущая скорость поезда: #{@current_speed}"
+    @current_speed
 
   end
   def add_wagon
-    @wagons = @wagons + 1 if @current_speed == 0
+    @wagons += 1 if @current_speed == 0
 
   end
   def delete_wagon
-    @wagons = @wagons - 1 if @current_speed == 0
+    @wagons -= 1 if @current_speed == 0
   end
 
   def getting_route(route)
@@ -59,7 +59,6 @@ class Train
     current_index = @route.stations.find_index(@current_station)
     @current_station = @route.stations[current_index + 1]
   end
-
 end
 
 class Route
