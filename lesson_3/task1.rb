@@ -1,7 +1,7 @@
 class Station
+  attr_reader :name, :trains
 
-  attr_reader :name , :trains
-  def initialize (name)
+  def initialize(name)
     @name = name
     @trains = []
   end
@@ -11,8 +11,8 @@ class Station
   end
 
   def return_type(type)
-    @trains.select do|train|
-       train.type == type
+    @trains.select do |train|
+      train.type == type
     end
   end
 
@@ -22,8 +22,8 @@ class Station
 end
 
 class Train
+  attr_reader :type, :number, :wagons, :current_station, :current_speed
 
-  attr_reader :type , :number , :wagons, :current_station, :current_speed
   def initialize(number, type, wagons)
     @number = number
     @type = type
@@ -39,16 +39,12 @@ class Train
     @current_speed -= speed
   end
 
-  def current_speed
-    @current_speed
-  end
-
   def add_wagon
-    @wagons += 1 if @current_speed == 0
+    @wagons += 1 if @current_speed.zero?
   end
 
   def delete_wagon
-    @wagons -= 1 if @current_speed == 0
+    @wagons -= 1 if @current_speed.zero?
   end
 
   def getting_route(route)
@@ -65,7 +61,7 @@ end
 class Route
   attr_reader :stations
 
-  def initialize (first , last)
+  def initialize(first, last)
     @stations = [first, last]
   end
 
@@ -81,5 +77,3 @@ class Route
     puts @stations
   end
 end
-
-
