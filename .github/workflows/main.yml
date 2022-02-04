@@ -1,0 +1,20 @@
+env:
+  RUBY_VERSION: 2.7
+
+name: Rubocop checking
+on: [push,pull_request]
+jobs:
+  rubocop-test:
+    name: Rubocop
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install Rubocop
+        run: gem install rubocop
+      - name: Install rubocop-performance
+        run: gem install rubocop-performance
+      - name: Check code
+        run: rubocop
