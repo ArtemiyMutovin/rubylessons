@@ -1,6 +1,6 @@
 class Station
-  attr_reader :name , :trains
 
+  attr_reader :name , :trains
   def initialize (name)
     @name = name
     @trains = []
@@ -22,8 +22,8 @@ class Station
 end
 
 class Train
-  attr_reader :type , :number , :wagons, :current_station, :current_speed
 
+  attr_reader :type , :number , :wagons, :current_station, :current_speed
   def initialize(number, type, wagons)
     @number = number
     @type = type
@@ -36,7 +36,7 @@ class Train
   end
 
   def stop(speed)
-    @current_speed = @current_speed - speed
+    @current_speed -= speed
   end
 
   def current_speed
@@ -65,7 +65,6 @@ end
 class Route
 
   attr_reader :stations
-
   def initialize (first , last)
     @stations = [first, last]
   end
