@@ -2,8 +2,8 @@
 
 require_relative 'controller'
 
-class Xbox
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :console_enabled, :wifi_enabled
+class Console
+  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled
 
   def initialize(model, name, color)
     @model = model
@@ -11,7 +11,7 @@ class Xbox
     @name = name
     @library = []
     @controllers_connected = []
-    @console_enabled = false
+    @enabled = false
     @wifi_enabled = false
   end
 
@@ -20,11 +20,11 @@ class Xbox
   end
 
   def power_switch
-    if @console_enabled
-      @console_enabled = false
+    if @enabled
+      @enabled = false
       'Консоль выключена'
     else
-      @console_enabled = true
+      @enabled = true
       'Консоль включена'
     end
   end
@@ -36,7 +36,7 @@ class Xbox
     end
   end
 
-  def connection_switch
+  def wifi_connection_switch
     if @wifi_enabled
       @wifi_enabled = false
       'Соединение выключено'

@@ -1,7 +1,7 @@
 env:
   RUBY_VERSION: 2.7
 
-name: Rubocop checking
+name: branch checking
 on: [push,pull_request]
 jobs:
   rubocop-test:
@@ -16,5 +16,23 @@ jobs:
         run: gem install rubocop
       - name: Install rubocop-performance
         run: gem install rubocop-performance
+      - name: Install rubocop-rspec
+        run: gem install rubocop-rspec
       - name: Check code
         run: rubocop
+  rspec-test:
+    name: Rspec
+    needs: rubocop-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          gem install bundler
+          bundle install
+      - name: Run tests
+        run: COVERAGE=true bundle exec rspec
