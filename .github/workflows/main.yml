@@ -35,4 +35,4 @@ jobs:
           gem install bundler
           bundle install
       - name: Run tests
-        run: COVERAGE=true bundle exec rspec
+        run: cd consoles && bundle exec rspec
