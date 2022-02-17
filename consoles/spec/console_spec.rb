@@ -13,6 +13,14 @@ RSpec.describe Console do
     end
   end
 
+  describe '.delete_controller' do
+    it 'deletes controller from console controllers' do
+      console.add_controller(controller)
+      console.delete_controller(controller)
+      expect(console.controllers_connected.count).to eq(0)
+    end
+  end
+
   describe '.power_switch' do
     it 'turn on console when it already turn off' do
       console.enabled = false

@@ -19,6 +19,10 @@ class Console
     @controllers_connected << gamepad
   end
 
+  def delete_controller(gamepad)
+    @controllers_connected.delete(gamepad)
+  end
+
   def power_switch
     if @enabled
       @enabled = false
