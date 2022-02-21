@@ -3,13 +3,13 @@
 require_relative 'controller'
 
 class Console
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled
+  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :apps, :games
 
   def initialize(model, name, color)
     @model = model
     @color = color
     @name = name
-    @library = []
+    @library = { games: [], apps: [] }
     @controllers_connected = []
     @enabled = false
     @wifi_enabled = false
@@ -50,19 +50,29 @@ class Console
     end
   end
 
+  def add_app(app)
+    @library[:apps] << app
+    puts "#{app} добавлен в вашу библиотеку"
+  end
+
   def add_game(game)
-    @library << game
-    puts "Игра #{game} добавлена в вашу библиотеку игр"
+    @library[:games] << game
+    puts "#{game} добавлен в вашу библиотеку"
+  end
+
+  def delete_app(app)
+    @library[:apps].delete(app)
+    puts "#{app} удален из вашей библиотеки"
   end
 
   def delete_game(game)
-    @library.delete(game)
-    puts "Игра #{game} удалена из вашей библиотеки игр"
+    @library[:games].delete(game)
+    puts "#{game} удален из вашей библиотеки"
   end
 
   def show_library
-    @library.each_with_index do |game, index|
-      puts "#{index + 1}.#{game}"
+    @library.each_with_index do |content, index|
+      puts "#{index + 1}.#{content}"
     end
   end
 end

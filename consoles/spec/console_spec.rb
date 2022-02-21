@@ -51,16 +51,31 @@ RSpec.describe Console do
 
   describe '.add_game' do
     it 'adds game to library' do
-      console.add_game('Star Wars')
-      expect(console.library.count).to eq(1)
+      console.add_game('Mass Effect')
+      expect(console.library[:games].count).to eq(1)
+    end
+  end
+
+  describe '.add_app' do
+    it 'adds app to library' do
+      console.add_app('Spotify')
+      expect(console.library[:apps].count).to eq(1)
     end
   end
 
   describe '.delete_game' do
     it 'deletes game from library' do
-      console.add_game('Star Wars')
-      console.delete_game('Star Wars')
-      expect(console.library.count).to eq(0)
+      console.add_game('Mass Effect')
+      console.delete_game('Mass Effect')
+      expect(console.library[:games].count).to eq(0)
+    end
+  end
+
+  describe '.delete_app' do
+    it 'deletes app from library' do
+      console.add_app('Spotify')
+      console.delete_app('Spotify')
+      expect(console.library[:apps].count).to eq(0)
     end
   end
 end
