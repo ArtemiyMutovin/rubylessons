@@ -1,10 +1,16 @@
 require_relative '../console'
 require_relative '../controller'
+require_relative '../game'
+require_relative '../playstation'
+require_relative '../xbox'
 
 RSpec.describe Console do
-  subject(:console) { described_class.new(:series_x, :home_console, :black) }
-
-  let(:controller) { Controller.new(:black) }
+  let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
+  let(:xbox) { Xbox.new(:series, :home_console, :black) }
+  let(:psgame) { Game.new(:sifu, :fighting, 2022, :playstation) }
+  let(:xbgame) { Game.new(:halo, :shooter, 2021, :xbox) }
+  let(:multigame) { Game.new(:batman, :action,2014, :multi) }
+  let(:controller) { Controller.new(:blue) }
 
   describe '.add_controller' do
     it 'adds controller to console controllers' do
@@ -50,9 +56,51 @@ RSpec.describe Console do
   end
 
   describe '.add_game' do
-    it 'adds game to library' do
-      console.add_game('Mass Effect')
-      expect(console.library[:games].count).to eq(1)
+    context 'when game.platform is playstation' do
+      context "console.type is playstation" do
+        it 'adds game to library' do
+          playstation.add_game(psgame)
+          expect(playstation.library[:games].count).to eq(1)
+        end
+      end
+
+      context 'console.type is xbox' do
+        it "doesn't add game to library" do
+          xbox.add_game(psgame)
+          expect(xbox.library[:games].count).to eq(0)
+        end
+      end
+    end
+
+    context 'when game.platform is xbox' do
+      context "console.type is xbox" do
+        it 'adds game to library' do
+          xbox.add_game(xbgame)
+          expect(xbox.library[:games].count).to eq(1)
+        end
+      end
+
+      context 'console.type is playstation' do
+        it "doesn't add game to library" do
+          playstation.add_game(xbgame)
+          expect(playstation.library[:games].count).to eq(0)
+        end
+      end
+    end
+
+    context 'when game.platform is multi' do
+      context "playstation" do
+        it 'adds game to library' do
+          playstation.add_game(multigame)
+          expect(playstation.library[:games].count).to eq(1)
+        end
+      end
+      context "xbox" do
+        it 'adds game to library' do
+          xbox.add_game(multigame)
+          expect(xbox.library[:games].count).to eq(1)
+        end
+      end
     end
   end
 
