@@ -16,7 +16,6 @@ RSpec.describe Console do
   let(:ps_controller) { PSController.new(:white) }
   let(:app1) { App.new(:spotify) }
 
-
   describe '.add_controller' do
     context 'when controller.type is playstation' do
       context 'when console.type is playstation' do
@@ -184,11 +183,10 @@ RSpec.describe Console do
     end
   end
 
-
   describe '.delete_app' do
     it 'deletes app from library' do
-      console.add_app('Spotify')
-      console.delete_app('Spotify')
+      console.add_app(app1)
+      console.delete_app(app1)
       expect(console.library[:apps].count).to eq(0)
     end
   end
