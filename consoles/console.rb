@@ -15,12 +15,19 @@ class Console
     @wifi_enabled = false
   end
 
-  def add_controller(gamepad)
-    @controllers_connected << gamepad
+  def add_controller(controller)
+    return unless @type == controller.type
+
+    @controllers_connected << controller
+    puts "#{controller} успешно добавлен"
+    # if @type == controller.type
+    #   @controllers_connected << controller
+    #   puts "#{controller} успешно добавлен "
+    # end
   end
 
-  def delete_controller(gamepad)
-    @controllers_connected.delete(gamepad)
+  def delete_controller(controller)
+    @controllers_connected.delete(controller)
   end
 
   def power_switch

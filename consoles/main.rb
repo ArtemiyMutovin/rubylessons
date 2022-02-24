@@ -4,4 +4,5 @@ require_relative 'playstation'
 require_relative 'xbox'
 require_relative 'game'
 require_relative 'app'
-
+require_relative 'xbox_controller'
+require_relative 'ps_controller'

@@ -1,5 +1,7 @@
 require_relative '../console'
 require_relative '../controller'
+require_relative '../xbox_controller'
+require_relative '../ps_controller'
 require_relative '../game'
 require_relative '../playstation'
 require_relative '../xbox'
@@ -10,20 +12,34 @@ RSpec.describe Console do
   let(:psgame) { Game.new(:sifu, :fighting, 2022, :playstation) }
   let(:xbgame) { Game.new(:halo, :shooter, 2021, :xbox) }
   let(:multigame) { Game.new(:batman, :action,2014, :multi) }
-  let(:controller) { Controller.new(:blue) }
+  let(:xbox_controller) { XboxController.new(:blue) }
+  let(:ps_controller) { PSController.new(:white) }
 
   describe '.add_controller' do
-    it 'adds controller to console controllers' do
-      console.add_controller(controller)
-      expect(console.controllers_connected.count).to eq(1)
+    context 'when controller.type is playstation' do
+      context 'when console.type is playstation' do
+        it 'adds controller to console controllers' do
+          playstation.add_controller(ps_controller)
+          expect(playstation.controllers_connected.count).to eq(1)
+        end
+      end
+    end
+
+    context 'when controller.type is xbox' do
+      context 'when console.type is xbox' do
+        it 'adds controller to console controllers' do
+          xbox.add_controller(xbox_controller)
+          expect(xbox.controllers_connected.count).to eq(1)
+        end
+      end
     end
   end
 
   describe '.delete_controller' do
     it 'deletes controller from console controllers' do
-      console.add_controller(controller)
-      console.delete_controller(controller)
-      expect(console.controllers_connected.count).to eq(0)
+console.add_controller(xbox_controller)
+console.delete_controller(xbox_controller)
+expect(console.controllers_connected.count).to eq(0)
     end
   end
 
@@ -57,7 +73,7 @@ RSpec.describe Console do
 
   describe '.add_game' do
     context 'when game.platform is playstation' do
-      context "console.type is playstation" do
+      context 'console.type is playstation' do
         it 'adds game to library' do
           playstation.add_game(psgame)
           expect(playstation.library[:games].count).to eq(1)
@@ -73,7 +89,7 @@ RSpec.describe Console do
     end
 
     context 'when game.platform is xbox' do
-      context "console.type is xbox" do
+      context 'console.type is xbox' do
         it 'adds game to library' do
           xbox.add_game(xbgame)
           expect(xbox.library[:games].count).to eq(1)
@@ -89,13 +105,13 @@ RSpec.describe Console do
     end
 
     context 'when game.platform is multi' do
-      context "playstation" do
+      context 'playstation' do
         it 'adds game to library' do
           playstation.add_game(multigame)
           expect(playstation.library[:games].count).to eq(1)
         end
       end
-      context "xbox" do
+      context 'xbox' do
         it 'adds game to library' do
           xbox.add_game(multigame)
           expect(xbox.library[:games].count).to eq(1)
