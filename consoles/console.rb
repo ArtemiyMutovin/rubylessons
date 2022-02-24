@@ -71,6 +71,8 @@ class Console
   end
 
   def delete_game(game)
+    return unless @type == game.platform || game.platform == :multi
+
     @library[:games].delete(game)
     puts "#{game} удален из вашей библиотеки"
   end
