@@ -3,7 +3,7 @@
 require_relative 'controller'
 
 class Console
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :apps, :games, :type
+  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :type
 
   def initialize(model, name, color)
     @model = model
@@ -20,10 +20,6 @@ class Console
 
     @controllers_connected << controller
     puts "#{controller} успешно добавлен"
-    # if @type == controller.type
-    #   @controllers_connected << controller
-    #   puts "#{controller} успешно добавлен "
-    # end
   end
 
   def delete_controller(controller)
@@ -72,10 +68,6 @@ class Console
 
     @library[:games] << game
     puts "#{game} добавлен в вашу библиотеку"
-    # if @type == game.platform || game.platform == :multi
-    #   @library[:games] << game
-    #   puts "#{game} добавлен в вашу библиотеку"
-    # end
   end
 
   def delete_game(game)

@@ -11,9 +11,11 @@ RSpec.describe Console do
   let(:xbox) { Xbox.new(:series, :home_console, :black) }
   let(:psgame) { Game.new(:sifu, :fighting, 2022, :playstation) }
   let(:xbgame) { Game.new(:halo, :shooter, 2021, :xbox) }
-  let(:multigame) { Game.new(:batman, :action,2014, :multi) }
+  let(:multigame) { Game.new(:batman, :action, 2014, :multi) }
   let(:xbox_controller) { XboxController.new(:blue) }
   let(:ps_controller) { PSController.new(:white) }
+  let(:app1) { App.new(:spotify) }
+
 
   describe '.add_controller' do
     context 'when controller.type is playstation' do
@@ -21,6 +23,13 @@ RSpec.describe Console do
         it 'adds controller to console controllers' do
           playstation.add_controller(ps_controller)
           expect(playstation.controllers_connected.count).to eq(1)
+        end
+      end
+
+      context 'when console.type is xbox' do
+        it "doesn't adds controller to console controllers" do
+          xbox.add_controller(ps_controller)
+          expect(xbox.controllers_connected.count).to eq(0)
         end
       end
     end
@@ -32,14 +41,21 @@ RSpec.describe Console do
           expect(xbox.controllers_connected.count).to eq(1)
         end
       end
+
+      context 'when console.type is playstation' do
+        it "doesn't adds controller to console controllers" do
+          playstation.add_controller(xbox_controller)
+          expect(playstation.controllers_connected.count).to eq(0)
+        end
+      end
     end
   end
 
   describe '.delete_controller' do
     it 'deletes controller from console controllers' do
-console.add_controller(xbox_controller)
-console.delete_controller(xbox_controller)
-expect(console.controllers_connected.count).to eq(0)
+      console.add_controller(xbox_controller)
+      console.delete_controller(xbox_controller)
+      expect(console.controllers_connected.count).to eq(0)
     end
   end
 
@@ -73,14 +89,14 @@ expect(console.controllers_connected.count).to eq(0)
 
   describe '.add_game' do
     context 'when game.platform is playstation' do
-      context 'console.type is playstation' do
+      context 'when console.type is playstation' do
         it 'adds game to library' do
           playstation.add_game(psgame)
           expect(playstation.library[:games].count).to eq(1)
         end
       end
 
-      context 'console.type is xbox' do
+      context 'when console.type is xbox' do
         it "doesn't add game to library" do
           xbox.add_game(psgame)
           expect(xbox.library[:games].count).to eq(0)
@@ -89,14 +105,14 @@ expect(console.controllers_connected.count).to eq(0)
     end
 
     context 'when game.platform is xbox' do
-      context 'console.type is xbox' do
+      context 'when console.type is xbox' do
         it 'adds game to library' do
           xbox.add_game(xbgame)
           expect(xbox.library[:games].count).to eq(1)
         end
       end
 
-      context 'console.type is playstation' do
+      context 'when console.type is playstation' do
         it "doesn't add game to library" do
           playstation.add_game(xbgame)
           expect(playstation.library[:games].count).to eq(0)
@@ -105,13 +121,14 @@ expect(console.controllers_connected.count).to eq(0)
     end
 
     context 'when game.platform is multi' do
-      context 'playstation' do
+      context 'when console is playstation' do
         it 'adds game to library' do
           playstation.add_game(multigame)
           expect(playstation.library[:games].count).to eq(1)
         end
       end
-      context 'xbox' do
+
+      context 'when console is xbox' do
         it 'adds game to library' do
           xbox.add_game(multigame)
           expect(xbox.library[:games].count).to eq(1)
@@ -120,20 +137,53 @@ expect(console.controllers_connected.count).to eq(0)
     end
   end
 
+  describe '.delete_game' do
+    context 'when console is playstation' do
+      context 'when game.platform is playstation'
+      it 'deletes game from playstation library' do
+        playstation.add_game(psgame)
+        playstation.delete_game(psgame)
+        expect(playstation.library[:games].count).to eq(0)
+      end
+    end
+
+    context 'when console.type is playstation' do
+      context 'when game.platform is multi' do
+        it 'deletes game from playstation library' do
+          playstation.add_game(multigame)
+          playstation.delete_game(multigame)
+          expect(playstation.library[:games].count).to eq(0)
+        end
+      end
+    end
+
+    context 'when console is xbox' do
+      context 'when game.platform is xbox'
+      it 'deletes game from xbox library' do
+        xbox.add_game(xbgame)
+        xbox.delete_game(xbgame)
+        expect(xbox.library[:games].count).to eq(0)
+      end
+    end
+
+    context 'when console.type is xbox' do
+      context 'when game.platform is multi' do
+        it 'deletes game from xbox library' do
+          xbox.add_game(multigame)
+          xbox.delete_game(multigame)
+          expect(xbox.library[:games].count).to eq(0)
+        end
+      end
+    end
+  end
+
   describe '.add_app' do
     it 'adds app to library' do
-      console.add_app('Spotify')
+      console.add_app(app1)
       expect(console.library[:apps].count).to eq(1)
     end
   end
 
-  describe '.delete_game' do
-    it 'deletes game from library' do
-      console.add_game('Mass Effect')
-      console.delete_game('Mass Effect')
-      expect(console.library[:games].count).to eq(0)
-    end
-  end
 
   describe '.delete_app' do
     it 'deletes app from library' do
