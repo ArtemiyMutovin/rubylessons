@@ -5,6 +5,6 @@ class Game
     @name = name
     @genre = genre
     @date = date
-    @platform = platform
+    @platform = platform.to_sym
   end
 end

@@ -90,14 +90,14 @@ RSpec.describe Console do
     context 'when game.platform is playstation' do
       context 'when console.type is playstation' do
         it 'adds game to library' do
-          playstation.add_game(psgame)
+          playstation.install(psgame)
           expect(playstation.library[:games].count).to eq(1)
         end
       end
 
       context 'when console.type is xbox' do
         it "doesn't add game to library" do
-          xbox.add_game(psgame)
+          xbox.install(psgame)
           expect(xbox.library[:games].count).to eq(0)
         end
       end
@@ -106,14 +106,14 @@ RSpec.describe Console do
     context 'when game.platform is xbox' do
       context 'when console.type is xbox' do
         it 'adds game to library' do
-          xbox.add_game(xbgame)
+          xbox.install(xbgame)
           expect(xbox.library[:games].count).to eq(1)
         end
       end
 
       context 'when console.type is playstation' do
         it "doesn't add game to library" do
-          playstation.add_game(xbgame)
+          playstation.install(xbgame)
           expect(playstation.library[:games].count).to eq(0)
         end
       end
@@ -122,26 +122,26 @@ RSpec.describe Console do
     context 'when game.platform is multi' do
       context 'when console is playstation' do
         it 'adds game to library' do
-          playstation.add_game(multigame)
+          playstation.install(multigame)
           expect(playstation.library[:games].count).to eq(1)
         end
       end
 
       context 'when console is xbox' do
         it 'adds game to library' do
-          xbox.add_game(multigame)
+          xbox.install(multigame)
           expect(xbox.library[:games].count).to eq(1)
         end
       end
     end
   end
 
-  describe '.delete_game' do
+  describe '.delete' do
     context 'when console is playstation' do
       context 'when game.platform is playstation'
       it 'deletes game from playstation library' do
-        playstation.add_game(psgame)
-        playstation.delete_game(psgame)
+        playstation.install(psgame)
+        playstation.delete(psgame)
         expect(playstation.library[:games].count).to eq(0)
       end
     end
@@ -149,8 +149,8 @@ RSpec.describe Console do
     context 'when console.type is playstation' do
       context 'when game.platform is multi' do
         it 'deletes game from playstation library' do
-          playstation.add_game(multigame)
-          playstation.delete_game(multigame)
+          playstation.install(multigame)
+          playstation.delete(multigame)
           expect(playstation.library[:games].count).to eq(0)
         end
       end
@@ -159,8 +159,8 @@ RSpec.describe Console do
     context 'when console is xbox' do
       context 'when game.platform is xbox'
       it 'deletes game from xbox library' do
-        xbox.add_game(xbgame)
-        xbox.delete_game(xbgame)
+        xbox.install(xbgame)
+        xbox.delete(xbgame)
         expect(xbox.library[:games].count).to eq(0)
       end
     end
@@ -168,8 +168,8 @@ RSpec.describe Console do
     context 'when console.type is xbox' do
       context 'when game.platform is multi' do
         it 'deletes game from xbox library' do
-          xbox.add_game(multigame)
-          xbox.delete_game(multigame)
+          xbox.install(multigame)
+          xbox.delete(multigame)
           expect(xbox.library[:games].count).to eq(0)
         end
       end
@@ -178,15 +178,15 @@ RSpec.describe Console do
 
   describe '.add_app' do
     it 'adds app to library' do
-      console.add_app(app1)
+      console.install(app1)
       expect(console.library[:apps].count).to eq(1)
     end
   end
 
   describe '.delete_app' do
     it 'deletes app from library' do
-      console.add_app(app1)
-      console.delete_app(app1)
+      console.install(app1)
+      console.delete(app1)
       expect(console.library[:apps].count).to eq(0)
     end
   end
