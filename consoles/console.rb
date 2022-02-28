@@ -24,6 +24,7 @@ class Console
 
   def delete_controller(controller)
     @controllers_connected.delete(controller)
+    puts "#{controller} успешно удален"
   end
 
   def power_switch
