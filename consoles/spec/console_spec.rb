@@ -75,29 +75,29 @@ RSpec.describe Console do
 
   describe '.power_switch' do
     it 'turn on console when it already turn off' do
-      console.enabled = false
-      console.power_switch
-      expect(console.enabled).to eq(true)
+      xbox.enabled = false
+      xbox.power_switch
+      expect(xbox.enabled).to eq(true)
     end
 
     it 'turn off console when it already turn on' do
-      console.enabled = true
-      console.power_switch
-      expect(console.enabled).to eq(false)
+      xbox.enabled = true
+      xbox.power_switch
+      expect(xbox.enabled).to eq(false)
     end
   end
 
   describe '.wifi_connection_switch' do
     it 'turn on console wifi connection when it already turn off' do
-      console.wifi_enabled = false
-      console.wifi_connection_switch
-      expect(console.wifi_enabled).to eq(true)
+      xbox.wifi_enabled = false
+      xbox.wifi_connection_switch
+      expect(xbox.wifi_enabled).to eq(true)
     end
 
     it 'turn off console wifi connection when it already turn on' do
-      console.wifi_enabled = true
-      console.wifi_connection_switch
-      expect(console.wifi_enabled).to eq(false)
+      xbox.wifi_enabled = true
+      xbox.wifi_connection_switch
+      expect(xbox.wifi_enabled).to eq(false)
     end
   end
 

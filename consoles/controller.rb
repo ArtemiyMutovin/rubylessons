@@ -21,12 +21,16 @@ class Controller
   end
 
   def create_console_connection(console)
-    if @connected_console == console
+    if type == console.type
+      if @connected_console == console
       puts 'Вы уже подключены'
-    elsif @connected_console.nil?
+      elsif @connected_console.nil?
       add_console_strategy(console)
-    else
+      else
       change_console_strategy(console)
+      end
+    else
+        puts "Консоль не найдена"
     end
   end
 
