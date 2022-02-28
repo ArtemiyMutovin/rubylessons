@@ -15,3 +15,5 @@ RSpec/NestedGroups:
   Max: 5
 RSpec/MultipleMemoizedHelpers:
   Max: 11
+RSpec/Metrics/BlockLength:
+  Enabled: false
