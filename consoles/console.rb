@@ -3,20 +3,28 @@
 require_relative 'controller'
 
 class Console
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled
+  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :type, :content
 
   def initialize(model, name, color)
     @model = model
     @color = color
     @name = name
-    @library = []
+    @library = { games: [], apps: [] }
     @controllers_connected = []
     @enabled = false
     @wifi_enabled = false
   end
 
-  def add_controller(gamepad)
-    @controllers_connected << gamepad
+  def add_controller(controller)
+    return unless @type == controller.type
+
+    @controllers_connected << controller
+    puts "#{controller} успешно добавлен"
+  end
+
+  def delete_controller(controller)
+    @controllers_connected.delete(controller)
+    puts "#{controller} успешно удален"
   end
 
   def power_switch
@@ -46,19 +54,33 @@ class Console
     end
   end
 
-  def add_game(game)
-    @library << game
-    puts "Игра #{game} добавлена в вашу библиотеку игр"
+  def install(content)
+    if content.instance_of?(Game)
+      if @type == content.platform || content.platform == :multi
+        @library[:games] << content
+        puts "Игра #{content} добавлена в вашу библиотеку"
+      end
+    else
+      @library[:apps] << content
+      puts "Приложение #{content} добавлено в вашу библиотеку"
+    end
   end
 
-  def delete_game(game)
-    @library.delete(game)
-    puts "Игра #{game} удалена из вашей библиотеки игр"
+  def delete(content)
+    if content.instance_of?(Game)
+      if @type == content.platform || content.platform == :multi
+        @library[:games].delete(content)
+        puts "Игра #{content} удалена из вашей библиотеки"
+      end
+    else
+      @library[:apps].delete(content)
+      puts "Приложение #{content} удалено из вашей библиотеки"
+    end
   end
 
   def show_library
-    @library.each_with_index do |game, index|
-      puts "#{index + 1}.#{game}"
+    @library.each_with_index do |content, index|
+      puts "#{index + 1}.#{content}"
     end
   end
 end

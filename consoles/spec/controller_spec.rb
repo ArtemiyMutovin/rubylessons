@@ -1,30 +1,35 @@
 require_relative '../controller'
 require_relative '../console'
+require_relative '../xbox_controller'
+require_relative '../ps_controller'
+require_relative '../playstation'
+require_relative '../xbox'
 
 RSpec.describe Controller do
-  subject(:controller) { described_class.new(:black) }
-
-  let(:xbox) { Console.new(:series_x, :home_console, :black) }
-  let(:new_xbox) { Console.new(:series_s, :guest_console, :white) }
+  let(:xbox_controller) { XboxController.new(:blue) }
+  let(:ps_controller) { PSController.new(:white) }
+  let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
+  let(:xbox) { Xbox.new(:series, :home_console, :black) }
+  let(:xbox2) { Xbox.new(:one, :home_console, :black) }
 
   describe '.power_switch' do
     context 'when controller has connected console' do
-      before { controller.connected_console = xbox }
+      before { xbox_controller.connected_console = xbox }
 
       context 'when console enabled' do
         before { xbox.enabled = true }
 
         it 'turn on controller when it already turn off and not change connected_console.enabled' do
-          controller.enabled = false
-          controller.power_switch
-          expect(controller.enabled).to eq(true)
+          xbox_controller.enabled = false
+          xbox_controller.power_switch
+          expect(xbox_controller.enabled).to eq(true)
           expect(xbox.enabled).to eq(true)
         end
 
         it 'turn off controller when it already turn on and turn off connected_console' do
-          controller.enabled = true
-          controller.power_switch
-          expect(controller.enabled).to eq(false)
+          xbox_controller.enabled = true
+          xbox_controller.power_switch
+          expect(xbox_controller.enabled).to eq(false)
           expect(xbox.enabled).to eq(false)
         end
       end
@@ -33,16 +38,16 @@ RSpec.describe Controller do
         before { xbox.enabled = false }
 
         it 'turn on controller when it already turn off and turn on connected_console' do
-          controller.enabled = false
-          controller.power_switch
-          expect(controller.enabled).to eq(true)
+          xbox_controller.enabled = false
+          xbox_controller.power_switch
+          expect(xbox_controller.enabled).to eq(true)
           expect(xbox.enabled).to eq(true)
         end
 
         it 'turn off controller when it already turn on and not change connected_console.enabled' do
-          controller.enabled = true
-          controller.power_switch
-          expect(controller.enabled).to eq(false)
+          xbox_controller.enabled = true
+          xbox_controller.power_switch
+          expect(xbox_controller.enabled).to eq(false)
           expect(xbox.enabled).to eq(false)
         end
       end
@@ -50,15 +55,15 @@ RSpec.describe Controller do
 
     context "when controller hasn't connected console" do
       it 'turn on controller when it already turn off' do
-        controller.enabled = false
-        controller.power_switch
-        expect(controller.enabled).to eq(true)
+        xbox_controller.enabled = false
+        xbox_controller.power_switch
+        expect(xbox_controller.enabled).to eq(true)
       end
 
       it 'turn off controller when it already turn on' do
-        controller.enabled = true
-        controller.power_switch
-        expect(controller.enabled).to eq(false)
+        xbox_controller.enabled = true
+        xbox_controller.power_switch
+        expect(xbox_controller.enabled).to eq(false)
       end
     end
   end
@@ -68,19 +73,19 @@ RSpec.describe Controller do
       context 'when console enabled' do
         before do
           xbox.enabled = true
-          controller.connected_console = xbox
+          xbox_controller.connected_console = xbox
         end
 
         it 'changes console if connected console != new console' do
-          controller.create_console_connection(new_xbox)
-          expect(controller.connected_console).to eq(new_xbox)
-          expect(xbox.controllers_connected).not_to include(controller)
-          expect(new_xbox.controllers_connected).to include(controller)
+          xbox_controller.create_console_connection(xbox2)
+          expect(xbox_controller.connected_console).to eq(xbox2)
+          expect(xbox.controllers_connected).not_to include(xbox_controller)
+          expect(xbox2.controllers_connected).to include(xbox_controller)
         end
 
         it "doesn't change console if connected console == new console" do
-          controller.create_console_connection(xbox)
-          expect(controller.connected_console).to eq(xbox)
+          xbox_controller.create_console_connection(xbox)
+          expect(xbox_controller.connected_console).to eq(xbox)
         end
       end
     end
@@ -90,20 +95,28 @@ RSpec.describe Controller do
         before { xbox.enabled = true }
 
         it 'connect controller to new console' do
-          controller.create_console_connection(xbox)
-          expect(controller.connected_console).to eq(xbox)
-          expect(xbox.controllers_connected).to eq([controller])
+          xbox_controller.create_console_connection(xbox)
+          expect(xbox_controller.connected_console).to eq(xbox)
+          expect(xbox.controllers_connected).to eq([xbox_controller])
         end
       end
 
-      context 'when console disabled' do
-        before { xbox.enabled = false }
-
-        it 'not connect controller to new console' do
-          controller.create_console_connection(xbox)
-          expect(controller.connected_console).to eq(nil)
+      context 'when controller.type != console type' do
+        it "doesn't connect controller to new console" do
+          xbox_controller.create_console_connection(playstation)
+          expect(xbox_controller.connected_console).to eq(nil)
           expect(xbox.controllers_connected).to eq([])
         end
+      end
+    end
+
+    context 'when console disabled' do
+      before { xbox.enabled = false }
+
+      it 'not connect controller to new console' do
+        xbox_controller.create_console_connection(xbox)
+        expect(xbox_controller.connected_console).to eq(nil)
+        expect(xbox.controllers_connected).to eq([])
       end
     end
   end
