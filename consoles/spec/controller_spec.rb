@@ -10,6 +10,7 @@ RSpec.describe Controller do
   let(:ps_controller) { PSController.new(:white) }
   let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
   let(:xbox) { Xbox.new(:series, :home_console, :black) }
+  let(:xbox2) { Xbox.new(:one, :home_console, :black) }
 
   describe '.power_switch' do
     context 'when controller has connected console' do
@@ -76,10 +77,10 @@ RSpec.describe Controller do
         end
 
         it 'changes console if connected console != new console' do
-          xbox_controller.create_console_connection(xbox)
-          expect(xbox_controller.connected_console).to eq(xbox)
+          xbox_controller.create_console_connection(xbox2)
+          expect(xbox_controller.connected_console).to eq(xbox2)
           expect(xbox.controllers_connected).not_to include(xbox_controller)
-          expect(xbox.controllers_connected).to include(xbox_controller)
+          expect(xbox2.controllers_connected).to include(xbox_controller)
         end
 
         it "doesn't change console if connected console == new console" do
