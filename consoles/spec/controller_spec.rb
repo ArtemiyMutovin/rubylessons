@@ -11,7 +11,6 @@ RSpec.describe Controller do
   let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
   let(:xbox) { Xbox.new(:series, :home_console, :black) }
 
-
   describe '.power_switch' do
     context 'when controller has connected console' do
       before { xbox_controller.connected_console = xbox }
@@ -108,16 +107,16 @@ RSpec.describe Controller do
           expect(xbox.controllers_connected).to eq([])
         end
       end
-      end
+    end
 
-      context 'when console disabled' do
-        before { xbox.enabled = false }
+    context 'when console disabled' do
+      before { xbox.enabled = false }
 
-        it 'not connect controller to new console' do
-          xbox_controller.create_console_connection(xbox)
-          expect(xbox_controller.connected_console).to eq(nil)
-          expect(xbox.controllers_connected).to eq([])
-        end
+      it 'not connect controller to new console' do
+        xbox_controller.create_console_connection(xbox)
+        expect(xbox_controller.connected_console).to eq(nil)
+        expect(xbox.controllers_connected).to eq([])
       end
     end
   end
+end
