@@ -2,7 +2,20 @@
 
 require_relative 'console'
 
-class Controller
+module Barcode
+  def add_barcode(code)
+    self.barcode = code
+  end
+
+  def show_barcode
+    self.barcode
+  end
+
+  attr_accessor :barcode
+end
+
+  class Controller
+    include Barcode
   attr_accessor :color, :enabled, :battery, :connected_console, :type
 
   def initialize(color)
@@ -75,3 +88,4 @@ def add_console_strategy(console)
     puts 'Консоль к которой вы хотите подключиться не найдена'
   end
 end
+

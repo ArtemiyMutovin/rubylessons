@@ -2,8 +2,21 @@
 
 require_relative 'controller'
 
+module Barcode
+  def add_barcode(code)
+    self.barcode = code
+  end
+
+  def show_barcode
+    self.barcode
+  end
+
+  attr_accessor :barcode
+end
+
 class Console
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :type, :content
+  include Barcode
+  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :type, :content, :barcode, :number
 
   def initialize(model, name, color)
     @model = model
@@ -84,3 +97,4 @@ class Console
     end
   end
 end
+
