@@ -1,22 +1,13 @@
 # frozen_string_literal: true
 
 require_relative 'controller'
-
-module Barcode
-  def add_barcode(code)
-    self.barcode = code
-  end
-
-  def show_barcode
-    self.barcode
-  end
-
-  attr_accessor :barcode
-end
+require_relative 'barcode'
 
 class Console
+  attr_accessor :color, :model, :name, :library, :controllers_connected,
+                :enabled, :wifi_enabled, :type, :content, :number, :barcode
+
   include Barcode
-  attr_accessor :color, :model, :name, :library, :controllers_connected, :enabled, :wifi_enabled, :type, :content, :barcode, :number
 
   def initialize(model, name, color)
     @model = model

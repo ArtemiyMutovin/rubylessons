@@ -21,7 +21,7 @@ RSpec.describe Controller do
     end
   end
 
-    describe '.power_switch' do
+  describe '.power_switch' do
     context 'when controller has connected console' do
       before { xbox_controller.connected_console = xbox }
 

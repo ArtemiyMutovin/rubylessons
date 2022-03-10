@@ -1,22 +1,11 @@
-module Barcode
-  def add_barcode(code)
-    self.barcode = code
-  end
-
-  def show_barcode
-    self.barcode
-  end
-
-  attr_accessor :barcode
-end
+require_relative 'barcode'
 
 class App
-  include Barcode
-  attr_accessor :name
+  attr_accessor :name, :barcode
 
-  def self.add_barcode(number)
-    @barcode = number
-  end
+  include Barcode
+
+  @instances = {}
 
   def initialize(name)
     @name = name

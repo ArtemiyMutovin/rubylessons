@@ -6,6 +6,7 @@ require_relative '../game'
 require_relative '../app'
 require_relative '../playstation'
 require_relative '../xbox'
+require_relative '../barcode'
 
 RSpec.describe Console do
   let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
@@ -24,20 +25,14 @@ RSpec.describe Console do
         expect(xbox.barcode).to eq(10)
       end
     end
-
-    context 'when object is game' do
-      it 'adds barcode to game' do
-        xbgame.add_barcode(35)
-        expect(xbgame.barcode).to eq(35)
-      end
-    end
-    context 'when object is app' do
-      it 'adds barcode to game' do
-        app1.add_barcode(20)
-        expect(app1.barcode).to eq(20)
-      end
-    end
   end
+
+    describe '.find_barcode' do
+      it 'finds barcode' do
+        xbox.add_barcode(10)
+        expect(xbox.class.find(10)).to eq(xbox)
+      end
+    end
 
   describe '.add_controller' do
     context 'when controller.type is playstation' do

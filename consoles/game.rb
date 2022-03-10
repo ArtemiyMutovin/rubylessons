@@ -1,19 +1,11 @@
-module Barcode
-  def add_barcode(code)
-    self.barcode = code
-  end
+require_relative 'barcode'
 
-  def show_barcode
-    self.barcode
-  end
+class Game
+  attr_accessor :name, :genre, :date, :platform, :barcode
 
-  attr_accessor :barcode
-end
+  include Barcode
 
-  class Game
-    include Barcode
-  attr_accessor :name, :genre, :date, :platform
-
+  @instances = {}
 
   def initialize(name, genre, date, platform)
     @name = name
