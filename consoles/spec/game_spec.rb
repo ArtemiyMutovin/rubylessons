@@ -5,13 +5,11 @@ RSpec.describe Game do
   let(:game) { Game.new(:batman, :action, 2014, :multi)}
 
   describe '.add_barcode' do
-    context 'when object is console' do
-      it 'adds barcode to console' do
+      it 'adds barcode to game' do
         game.add_barcode(10)
         expect(game.barcode).to eq(10)
       end
     end
-  end
 
   describe '.find_barcode' do
     it 'finds barcode' do
