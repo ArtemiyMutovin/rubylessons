@@ -8,8 +8,6 @@ class Controller
 
   include Barcode
 
-  @instances = {}
-
   def initialize(color)
     @color = color
     @enabled = false
