@@ -1,4 +1,3 @@
-require_relative '../barcode'
 require_relative '../game'
 
 RSpec.describe Game do

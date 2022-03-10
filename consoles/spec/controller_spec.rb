@@ -21,6 +21,13 @@ RSpec.describe Controller do
     end
   end
 
+  describe '.find_barcode' do
+    it 'finds barcode' do
+      xbox_controller.add_barcode(10)
+      expect(xbox_controller.class.find(10)).to eq(xbox_controller)
+    end
+  end
+
   describe '.power_switch' do
     context 'when controller has connected console' do
       before { xbox_controller.connected_console = xbox }

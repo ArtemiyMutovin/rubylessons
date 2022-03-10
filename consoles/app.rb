@@ -5,8 +5,6 @@ class App
 
   include Barcode
 
-  @instances = {}
-
   def initialize(name)
     @name = name
   end

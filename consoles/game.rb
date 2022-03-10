@@ -5,8 +5,6 @@ class Game
 
   include Barcode
 
-  @instances = {}
-
   def initialize(name, genre, date, platform)
     @name = name
     @genre = genre

@@ -1,4 +1,3 @@
-require_relative '../barcode'
 require_relative '../app'
 
 RSpec.describe App do

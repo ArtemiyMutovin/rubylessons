@@ -6,7 +6,6 @@ require_relative '../game'
 require_relative '../app'
 require_relative '../playstation'
 require_relative '../xbox'
-require_relative '../barcode'
 
 RSpec.describe Console do
   let(:playstation) { Playstation.new(:ps5, :home_console, :white) }
