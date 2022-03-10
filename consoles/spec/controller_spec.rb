@@ -12,6 +12,22 @@ RSpec.describe Controller do
   let(:xbox) { Xbox.new(:series, :home_console, :black) }
   let(:xbox2) { Xbox.new(:one, :home_console, :black) }
 
+  describe '.add_barcode' do
+    context 'when object is controller' do
+      it 'adds barcode to controller' do
+        xbox_controller.add_barcode(2)
+        expect(xbox_controller.barcode).to eq(2)
+      end
+    end
+  end
+
+  describe '.find_barcode' do
+    it 'finds barcode' do
+      xbox_controller.add_barcode(10)
+      expect(xbox_controller.class.find(10)).to eq(xbox_controller)
+    end
+  end
+
   describe '.power_switch' do
     context 'when controller has connected console' do
       before { xbox_controller.connected_console = xbox }

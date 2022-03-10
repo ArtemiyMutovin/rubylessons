@@ -17,6 +17,22 @@ RSpec.describe Console do
   let(:ps_controller) { PSController.new(:white) }
   let(:app1) { App.new(:spotify) }
 
+  describe '.add_barcode' do
+    context 'when object is console' do
+      it 'adds barcode to console' do
+        xbox.add_barcode(10)
+        expect(xbox.barcode).to eq(10)
+      end
+    end
+  end
+
+  describe '.find_barcode' do
+    it 'finds barcode' do
+      xbox.add_barcode(10)
+      expect(xbox.class.find(10)).to eq(xbox)
+    end
+  end
+
   describe '.add_controller' do
     context 'when controller.type is playstation' do
       context 'when console.type is playstation' do

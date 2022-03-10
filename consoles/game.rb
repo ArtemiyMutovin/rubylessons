@@ -1,5 +1,9 @@
+require_relative 'barcode'
+
 class Game
-  attr_accessor :name, :genre, :date, :platform
+  attr_accessor :name, :genre, :date, :platform, :barcode
+
+  include Barcode
 
   def initialize(name, genre, date, platform)
     @name = name
