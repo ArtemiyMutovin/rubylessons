@@ -2,14 +2,14 @@ require_relative '../barcode'
 require_relative '../game'
 
 RSpec.describe Game do
-  let(:game) { Game.new(:batman, :action, 2014, :multi)}
+  let(:game) { described_class.new(:batman, :action, 2014, :multi) }
 
   describe '.add_barcode' do
-      it 'adds barcode to game' do
-        game.add_barcode(10)
-        expect(game.barcode).to eq(10)
-      end
+    it 'adds barcode to game' do
+      game.add_barcode(10)
+      expect(game.barcode).to eq(10)
     end
+  end
 
   describe '.find_barcode' do
     it 'finds barcode' do
@@ -18,4 +18,3 @@ RSpec.describe Game do
     end
   end
 end
-

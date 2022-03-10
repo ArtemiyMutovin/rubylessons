@@ -27,12 +27,12 @@ RSpec.describe Console do
     end
   end
 
-    describe '.find_barcode' do
-      it 'finds barcode' do
-        xbox.add_barcode(10)
-        expect(xbox.class.find(10)).to eq(xbox)
-      end
+  describe '.find_barcode' do
+    it 'finds barcode' do
+      xbox.add_barcode(10)
+      expect(xbox.class.find(10)).to eq(xbox)
     end
+  end
 
   describe '.add_controller' do
     context 'when controller.type is playstation' do
