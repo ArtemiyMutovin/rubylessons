@@ -27,7 +27,7 @@ class Controller
     return unless type == console.type
 
     if @connected_console == console
-      puts 'Вы уже подключены'
+      @connected_console
     elsif @connected_console.nil?
       add_console_strategy(console)
     else
@@ -40,26 +40,24 @@ class Controller
   def enabled_connecting_console
     @enabled = true
     @connected_console.enabled = true if !@connected_console.nil? && @connected_console.enabled == false
-    puts 'Консоль и геймпад включены'
   end
 
   def disable_connecting_console
     @enabled = false
     @connected_console.enabled = false if !@connected_console.nil? && @connected_console.enabled == true
-    puts 'Консоль и геймпад отключены'
   end
 
   def change_console(console)
     @connected_console.controllers_connected.delete(self)
     @connected_console = console
     @connected_console.add_controller(self)
-    puts "Ваш геймпад подключен к консоли #{console.name}"
+    @connected_console
   end
 
   def add_console(console)
     @connected_console = console
     @connected_console.add_controller(self)
-    puts "Ваш геймпад подключен к консоли #{console.name}"
+    @connected_console
   end
 
   def change_console_strategy(console)
