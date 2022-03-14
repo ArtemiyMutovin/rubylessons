@@ -16,12 +16,10 @@ module Barcode
 
   module InstanceMethods
     def add_barcode(code)
-      if code =~ /^[a-z]+\w.+\d{3}$/i
-        self.barcode = code
-        self.class.instances[code] = self
-      else
-        raise "Barcode has invalid format"
-      end
+      raise 'Barcode has invalid format' unless /^[a-z]{3}-\d+$/i.match?(code)
+
+      self.barcode = code
+      self.class.instances[code] = self
     end
   end
 end
