@@ -20,16 +20,16 @@ RSpec.describe Console do
   describe '.add_barcode' do
     context 'when object is console' do
       it 'adds barcode to console' do
-        xbox.add_barcode(10)
-        expect(xbox.barcode).to eq(10)
+        xbox.add_barcode('abc-123')
+        expect(xbox.barcode).to eq('abc-123')
       end
     end
   end
 
   describe '.find_barcode' do
     it 'finds barcode' do
-      xbox.add_barcode(10)
-      expect(xbox.class.find(10)).to eq(xbox)
+      xbox.add_barcode('abc-10')
+      expect(xbox.class.find('abc-10')).to eq(xbox)
     end
   end
 
