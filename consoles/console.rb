@@ -51,9 +51,7 @@ class Console
 
   def install(content)
     if content.instance_of?(Game)
-      if @type == content.platform || content.platform == :multi
-        @library[:games] << content
-      end
+      @library[:games] << content if @type == content.platform || content.platform == :multi
     else
       @library[:apps] << content
     end
@@ -61,9 +59,7 @@ class Console
 
   def delete(content)
     if content.instance_of?(Game)
-      if @type == content.platform || content.platform == :multi
-        @library[:games].delete(content)
-      end
+      @library[:games].delete(content) if @type == content.platform || content.platform == :multi
     else
       @library[:apps].delete(content)
     end
