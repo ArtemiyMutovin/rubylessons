@@ -23,12 +23,12 @@ class Console
     return unless @type == controller.type
 
     @controllers_connected << controller
-    puts "#{controller} успешно добавлен"
+    @controllers_connected
   end
 
   def delete_controller(controller)
     @controllers_connected.delete(controller)
-    puts "#{controller} успешно удален"
+    @controllers_connected
   end
 
   def power_switch
@@ -38,13 +38,6 @@ class Console
     else
       @enabled = true
       'Консоль включена'
-    end
-  end
-
-  def controllers_on
-    @controllers_connected.each_with_index do |controller, index|
-      puts 'Геймпады успешно синхронизированы'
-      puts "#{index + 1}. #{controller}"
     end
   end
 
@@ -62,11 +55,11 @@ class Console
     if content.instance_of?(Game)
       if @type == content.platform || content.platform == :multi
         @library[:games] << content
-        puts "Игра #{content} добавлена в вашу библиотеку"
+        @library
       end
     else
       @library[:apps] << content
-      puts "Приложение #{content} добавлено в вашу библиотеку"
+      @library
     end
   end
 
@@ -74,17 +67,11 @@ class Console
     if content.instance_of?(Game)
       if @type == content.platform || content.platform == :multi
         @library[:games].delete(content)
-        puts "Игра #{content} удалена из вашей библиотеки"
+        @library
       end
     else
       @library[:apps].delete(content)
-      puts "Приложение #{content} удалено из вашей библиотеки"
-    end
-  end
-
-  def show_library
-    @library.each_with_index do |content, index|
-      puts "#{index + 1}.#{content}"
+      @library
     end
   end
 end
