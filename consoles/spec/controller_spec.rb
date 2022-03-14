@@ -15,16 +15,16 @@ RSpec.describe Controller do
   describe '.add_barcode' do
     context 'when object is controller' do
       it 'adds barcode to controller' do
-        xbox_controller.add_barcode(2)
-        expect(xbox_controller.barcode).to eq(2)
+        xbox_controller.add_barcode('abc-123')
+        expect(xbox_controller.barcode).to eq('abc-123')
       end
     end
   end
 
   describe '.find_barcode' do
     it 'finds barcode' do
-      xbox_controller.add_barcode(10)
-      expect(xbox_controller.class.find(10)).to eq(xbox_controller)
+      xbox_controller.add_barcode('abc-123')
+      expect(xbox_controller.class.find('abc-123')).to eq(xbox_controller)
     end
   end
 
