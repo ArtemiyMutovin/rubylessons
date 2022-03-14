@@ -61,18 +61,14 @@ class Controller
   end
 
   def change_console_strategy(console)
-    if @connected_console.enabled == true
-      change_console(console)
-    else
-      raise "Console is not available"
-    end
+    raise 'Console is not available' unless @connected_console.enabled == true
+
+    change_console(console)
   end
 
   def add_console_strategy(console)
-    if console.enabled == true
-      add_console(console)
-    else
-      raise "Console is not available"
-    end
+    raise 'Console is not available' unless console.enabled == true
+
+    add_console(console)
   end
 end

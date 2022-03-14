@@ -23,12 +23,10 @@ class Console
     return unless @type == controller.type
 
     @controllers_connected << controller
-    @controllers_connected
   end
 
   def delete_controller(controller)
     @controllers_connected.delete(controller)
-    @controllers_connected
   end
 
   def power_switch
@@ -55,11 +53,9 @@ class Console
     if content.instance_of?(Game)
       if @type == content.platform || content.platform == :multi
         @library[:games] << content
-        @library
       end
     else
       @library[:apps] << content
-      @library
     end
   end
 
@@ -67,11 +63,9 @@ class Console
     if content.instance_of?(Game)
       if @type == content.platform || content.platform == :multi
         @library[:games].delete(content)
-        @library
       end
     else
       @library[:apps].delete(content)
-      @library
     end
   end
 end

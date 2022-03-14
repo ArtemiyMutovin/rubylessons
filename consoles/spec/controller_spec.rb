@@ -130,7 +130,7 @@ RSpec.describe Controller do
       before { xbox.enabled = false }
 
       it 'not connect controller to new console' do
-        xbox_controller.create_console_connection(xbox)
+        expect { xbox_controller.create_console_connection(xbox) }.to raise_error(RuntimeError)
         expect(xbox_controller.connected_console).to eq(nil)
         expect(xbox.controllers_connected).to eq([])
       end

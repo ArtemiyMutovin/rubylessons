@@ -28,8 +28,8 @@ RSpec.describe Console do
 
   describe '.find_barcode' do
     it 'finds barcode' do
-      xbox.add_barcode(10)
-      expect(xbox.class.find(10)).to eq(xbox)
+      xbox.add_barcode('abc-10')
+      expect(xbox.class.find('abc-10')).to eq(xbox)
     end
   end
 
