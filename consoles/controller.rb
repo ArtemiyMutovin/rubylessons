@@ -64,7 +64,7 @@ class Controller
     if @connected_console.enabled == true
       change_console(console)
     else
-      puts 'Консоль к которой вы хотите подключиться не найдена'
+      raise "Console is not available"
     end
   end
 
@@ -72,7 +72,7 @@ class Controller
     if console.enabled == true
       add_console(console)
     else
-      puts 'Консоль к которой вы хотите подключиться не найдена'
+      raise "Console is not available"
     end
   end
 end
